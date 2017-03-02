@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" class="js">
+<head>
+    <meta charset="utf-8">
+    <!--[if IE]>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'/>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>my demo</title>
+
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="main.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
+    <!-- diff2html -->
+    <link rel="stylesheet" type="text/css" href="assets/diff2html.min.css">
+    <!-- -->
+
+</head>
+<body class="template-index template-index-min">
+<div class="swag-line">
+    <div class="container">
+        <h1>Diff Prettifier Example</h1><br>
+        <div id="new-url-diff-container" style="margin: 0 auto;">
+        </div>
+        <br> <br>
+    </div>
+</div>
+
+<!-- General JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "SoftwareSourceCode",
+  "name": "diff2html",
+  "author": "Rodrigo Fernandes",
+  "image": "https://diff2html.xyz/img/snapshot-3.png",
+  "description": "Diff parser and pretty html generator.",
+  "codeRepository": "https://github.com/rtfpessoa/diff2html",
+  "programmingLanguage": "JavaScript",
+  "runtimePlatform": "Node >= 0.12",
+  "mainEntityOfPage": "https://diff2html.xyz/"
+}
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/scala.min.js"></script>
+
+<!-- diff2html -->
+<script type="text/javascript" src="assets/diff2html.min.js"></script>
+<script type="text/javascript" src="assets/diff2html-ui.min.js"></script>
+<!-- -->
+
+<script type="text/javascript" src="demo.min.js"></script>
+
+<script>
+$(document).ready(function(){
+
+/*
+how to generate the below output?
+
+get a source file
+make a copy
+change some lines on the copy
+then run diff -u originalfile newfile > output
+
+copy-paste the content of the output file below
+
+*/
+var data = `
+
+--- bionomial_xor.py    2017-03-01 20:51:02.000000000 -0800
++++ bionomial_xor_new.py    2017-03-01 20:51:45.000000000 -0800
+@@ -1,28 +1,21 @@
+-# import time
+-
++import time
+ import copy
+ def manually_generate(item, n):
+     temp = [0 for _ in range(len(item))]
+     for x in range(n):
+         for i in range(len(item)-1):
+             temp[i]= item[i] ^ item[i+1]
+-
+         temp[len(item)-1] = item[len(item)-1] ^ item[0]
+-        # print temp
+-        # p_item(temp)
+         item = copy.copy(temp)
+     return temp
+ 
+ 
+ items = [1,2,3,4,5,6,7,8,9]
+-print "original", items
+ for i in range(1, 19):
+     t = copy.copy(items)
+-    print i, "     =", manually_generate(t, i)
+ 
+ 
+-print "--------"
+-items = [1,2,3,4,5,6]
++items = [1,2,3,4,5,6,8,9,10]
+ print "original", items
+ for i in range(1, 19):
+     t = copy.copy(items)
+`;
+
+var container = '#new-url-diff-container';
+
+var $container = $('.container');
+
+var diff2htmlUi = new Diff2HtmlUI({diff: data});
+$container.css({'width': '100%'});
+
+
+diff2htmlUi.draw(container, {          
+    synchronisedScroll: true
+});
+
+
+});
+</script>
+
+</body>
+</html>
